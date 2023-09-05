@@ -1,5 +1,5 @@
 export async function fetchCars() {
-  const url = "https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?model=corolla";
+  const url = "https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?model=carrera";
   const options = {
     method: "GET",
     headers: {
@@ -13,7 +13,7 @@ export async function fetchCars() {
   const result = await response.json();
 
   return result;
-}
+};
 
 export const calculateCarRent = (city_mpg: number, year: number) => {
   const basePricePerDay = 50; // Base rental price per day in dollars
@@ -36,3 +36,4 @@ export const mpgToEuropeanStandard = (mpg: number) => {
 
   return litersPer100Km.toFixed(1);
 };
+

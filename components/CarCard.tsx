@@ -85,11 +85,11 @@ function CarCard({ car }: CarCardProps) {
           />
         </div>
       </div>
-      {/* <CarDetails 
+      <CarDetails 
         isOpen={isOpen} 
         closeModal={closeModal} 
         car={car} 
-      /> */}
+      />
     </div>
   );
 }
