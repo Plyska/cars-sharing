@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { Hero, SearchBar, CustomFilter, CarCard } from "@/components";
+import { Hero, SearchBar, CustomFilter, CarCard, ShowMore } from "@/components";
 import { useCallback } from "react";
 import { fetchCars } from "@/utils";
 import { fuels, yearsOfProduction } from "@/constants";
@@ -27,8 +27,8 @@ export default async function Home({ searchParams }: any) {
         <div className="home__filters">
           <SearchBar />
           <div className="home__filter-container">
-            <CustomFilter title="fuel" options={fuels}/>
-            <CustomFilter title="year" options={yearsOfProduction}/>
+            <CustomFilter title="fuel" options={fuels} />
+            <CustomFilter title="year" options={yearsOfProduction} />
           </div>
         </div>
         {!isDataEmpty ? (
@@ -38,6 +38,9 @@ export default async function Home({ searchParams }: any) {
                 <CarCard car={car} />
               ))}
             </div>
+            <ShowMore pageNumber={(searchParams.limit || 10) / 10} 
+              isNext={(searchParams.limit || 10) > allCars.length}
+            />
           </section>
         ) : (
           <div className="home__error-container">
