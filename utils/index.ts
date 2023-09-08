@@ -1,7 +1,8 @@
-import { CarProps } from "@/types";
+import { CarProps, FilterProps } from "@/types";
 
-export async function fetchCars() {
-  const url = "https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?model=carrera";
+export async function fetchCars(filters: FilterProps) {
+  const { manufacturer, year, fuel, model, limit } = filters;
+  const url = `https://cars-by-api-ninjas.p.rapidapi.com/v1/cars?make=${manufacturer}&year=${year}&model=${model}&limit=${limit}&fuel_type=${fuel}`;
   const options = {
     method: "GET",
     headers: {
@@ -15,7 +16,7 @@ export async function fetchCars() {
   const result = await response.json();
 
   return result;
-};
+}
 
 export const calculateCarRent = (city_mpg: number, year: number) => {
   const basePricePerDay = 50; // Base rental price per day in dollars
@@ -42,14 +43,24 @@ export const mpgToEuropeanStandard = (mpg: number) => {
 export const generateCarImageUrl = (car: CarProps, angle?: string) => {
   const url = new URL("https://cdn.imagin.studio/getimage");
   const { make, model, year } = car;
-//
-  url.searchParams.append('customer', "hrjavascript-mastery" || '');
-  url.searchParams.append('make', make);
-  url.searchParams.append('modelFamily', model.split(" ")[0]);
-  url.searchParams.append('zoomType', 'fullscreen');
-  url.searchParams.append('modelYear', `${year}`);
+  //
+  url.searchParams.append("customer", "hrjavascript-mastery" || "");
+  url.searchParams.append("make", make);
+  url.searchParams.append("modelFamily", model.split(" ")[0]);
+  url.searchParams.append("zoomType", "fullscreen");
+  url.searchParams.append("modelYear", `${year}`);
   // url.searchParams.append('zoomLevel', zoomLevel);
-  url.searchParams.append('angle', `${angle}`);
+  url.searchParams.append("angle", `${angle}`);
 
   return `${url}`;
-} 
+};
+
+export const updateSearchParams = (type: string, value: string) => {
+  const searchParams = new URLSearchParams(window.location.search);
+
+  searchParams.set(type, value);
+
+  const newPathname = `${window.location.pathname}?${searchParams.toString()}`;
+
+  return newPathname;
+};
