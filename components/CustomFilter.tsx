@@ -24,7 +24,7 @@ const CustomFilter = ({ title, options }: CustomFilterProps) => {
   return (
     <div className="w-fit">
       <Listbox value={selected} onChange={handleChange}>
-        <div className="relative w-fit z-10">
+        <div className="relative w-fit z-9">
           <Listbox.Button className="custom-filter__btn">
             <span className="block truncate">{selected.title}</span>
             <Image
